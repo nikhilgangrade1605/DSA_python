@@ -1,0 +1,91 @@
+# #level 1
+
+# def simulate_browser_history():
+#     try:
+#         # Read the total number of operations first
+#         n_str = input()
+#         if not n_str.strip():
+#             return
+#         n = int(n_str)
+        
+#         history = []
+
+#         # Read exactly 'n' lines of operations
+#         for _ in range(n):
+#             line = input()
+#             parts = line.split()
+#             if not parts:
+#                 continue
+                
+#             command = parts[0]
+
+#             if command == "VIEW":
+#                 product_id = parts[1]
+#                 history.append(product_id)
+#             elif command == "BACK":
+#                 if history:
+#                     history.pop()
+
+#         # Determine outputs
+#         current_page = history[-1] if history else "None"
+#         pages_in_history = len(history)
+
+#         # Print matching your sample output format
+#         print(f"Current Page: {current_page}")
+#         print(f"Pages In History: {pages_in_history}")
+
+#     except (IOError, ValueError):
+#         return
+
+# if __name__ == "__main__":
+#     simulate_browser_history()
+
+def simulate_shopping_cart():
+    try:
+        # Read the total number of operations
+        n_str = input()
+        if not n_str.strip():
+            return
+        n = int(n_str)
+        
+        cart = []
+        undo_stack = []
+
+        # Read exactly 'n' lines of operations
+        for _ in range(n):
+            line = input()
+            parts = line.split()
+            if not parts:
+                continue
+                
+            command = parts[0].upper()
+
+            if command == "ADD":
+                item_id = parts[1]
+                cart.append(item_id)
+                # Note: In standard behavior, adding a brand new item clears 
+                # the undo history. If your specific application retains it, 
+                # you can remove the next line:
+                undo_stack.clear() 
+                
+            elif command == "UNDO":
+                if cart:
+                    # Pop from active cart and move to undo stack
+                    removed_item = cart.pop()
+                    undo_stack.append(removed_item)
+
+        # Determine final outputs
+        items_in_cart = len(cart)
+        last_added = cart[-1] if cart else "None"
+        undo_count = len(undo_stack)
+
+        # Print matching your sample output format exactly
+        print(f"Items In Cart: {items_in_cart}")
+        print(f"Last Added: {last_added}")
+        print(f"Undo Count: {undo_count}")
+
+    except (IOError, ValueError):
+        return
+
+if __name__ == "__main__":
+    simulate_shopping_cart()
